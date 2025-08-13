@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Personal Diary - Cool Pastel Notebook</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Roboto+Slab&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --background-light: #e8f0f7;
+            --paper-white: #fcfcfc;
+            --soft-blue: #6699cc;
+            --pastel-blue: #a8c6ff;
+            --shadow-color: rgba(102, 153, 204, 0.3);
+            --text-color: #2b3a67;
+            --line-color: #cbd7e7;
+            --border-color: #b0c4de;
+            --sticky-gradient: linear-gradient(160deg, #d9e6fb 0%, #aad1ff 100%);
+            --background-gradient: linear-gradient(90deg, #e8f0f7 0%, #d9e6fb 100%);
+            --button-color: #a8c6ff;
+            --button-hover-color: #6699cc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto Slab', serif;
+            background: var(--background-gradient);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image:
+                repeating-linear-gradient(to bottom,
+                    transparent,
+                    transparent 28px,
+                    var(--line-color) 29px,
+                    var(--line-color) 30px);
+            background-attachment: fixed;
+        }
+
+        /* Containers */
+        header,
+        footer,
+        main {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            background: var(--paper-white);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .diary-title {
+            font-family: 'Indie Flower', cursive;
+            font-size: 3rem;
+            color: var(--soft-blue);
+            margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 1px #c0d1f7;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--pastel-blue);
+            margin-top: 0.5rem;
+            font-size: 1.3rem;
+            user-select: none;
+        }
+
+        /* Entries Layout */
+        .entries {
+            display: flex;
+            flex-direction: column;
+            gap: 2.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .entry-card {
+            background: var(--paper-white);
+            border: 1.5px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.25rem 2.5rem 2.5rem 2.5rem;
+            position: relative;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            font-family: 'Roboto Slab', serif;
+            color: var(--text-color);
+        }
+
+        .entry-card:hover {
+            box-shadow: 0 14px 40px rgba(102, 153, 204, 0.4);
+        }
+
+        /* Date Tab */
+        .date-tab {
+            position: absolute;
+            top: 1.1rem;
+            left: -2rem;
+            background: var(--sticky-gradient);
+            color: #2a4c8a;
+            font-weight: 700;
+            font-family: 'Indie Flower', cursive;
+            padding: 0.55rem 1.3rem;
+            border-radius: 8px 8px 16px 16px;
+            font-size: 1.4rem;
+            transform: rotate(-2deg);
+            border: 1px solid #b0c7eb;
+            letter-spacing: 0.4px;
+            line-height: 1.1;
+            box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.12);
+            user-select: none;
+        }
+
+        .date-tab sup {
+            font-size: 0.6em;
+            vertical-align: super;
+            margin-left: 3px;
+            color: #7393d4;
+        }
+
+        /* Labels */
+        .label {
+            font-weight: 700;
+            color: var(--soft-blue);
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.35rem;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        /* Editable fields styling */
+        [contenteditable] {
+            border: 1.5px dashed var(--pastel-blue);
+            border-radius: 10px;
+            padding: 10px 15px;
+            min-height: 1.6em;
+            outline-offset: 3px;
+            box-shadow: inset 1px 1px 6px rgba(255 255 255 / 0.8);
+            transition: background-color 0.3s ease;
+            cursor: text;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            font-family: 'Roboto Slab', serif;
+            color: var(--text-color);
+        }
+
+        [contenteditable]:empty:before {
+            content: attr(data-placeholder);
+            color: #a6b8df;
+            font-style: italic;
+        }
+
+        [contenteditable]:focus {
+            background-color: #ebf2ff;
+            box-shadow: 0 0 10px var(--soft-blue);
+            outline-color: var(--soft-blue);
+        }
+
+        /* Title Inside Card */
+        .entry-title {
+            font-family: 'Indie Flower', cursive;
+            color: var(--soft-blue);
+            font-size: 2.4rem;
+            margin-top: 0.3rem;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Save Button Styling */
+        .save-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.4rem;
+            background-color: var(--button-color);
+            color: #fff;
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(102, 153, 204, 0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .save-button:hover {
+            background-color: var(--button-hover-color);
+            transform: scale(1.05);
+        }
+
+        .save-button:active {
+            transform: scale(0.96);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--pastel-blue);
+            text-shadow: 0 1px 1px #cee0ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            header,
+            footer,
+            main {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .date-tab {
+                font-size: 1.1rem;
+                left: -1.4rem;
+                padding: 0.45rem 1rem;
+            }
+
+            .entry-title {
+                font-size: 1.8rem;
+            }
+
+            .entry-card p,
+            [contenteditable] {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="diary-title">Cool Pastel Diary</h1>
+        <p class="quote">"Every day writes a new memory."</p>
+    </header>
+
+    <main>
+        <section class="entries">
+
+            <!-- Blank Entry Template -->
+            <article class="entry-card">
+                <div class="date-tab" contenteditable="true" data-placeholder="Date Tab (e.g., Aug 15⁵)"></div>
+
+                <span class="label">Date:</span>
+                <p contenteditable="true" data-placeholder="Type full date here..."></p>
+
+                <span class="label">Title:</span>
+                <h2 class="entry-title" contenteditable="true" data-placeholder="Type your title here..."></h2>
+
+                <span class="label">Entry:</span>
+                <p contenteditable="true" data-placeholder="Write your diary entry here..."></p>
+                <p contenteditable="true" data-placeholder="Continue writing..."></p>
+
+                <!-- Save Entry Button -->
+                <button class="save-button">💾 Save Entry</button>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Cool Pastel Diary. University Project Version</p>
+    </footer>
+
+</body>
+
+</html>
